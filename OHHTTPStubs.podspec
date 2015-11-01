@@ -24,6 +24,9 @@ Pod::Spec.new do |s|
   s.authors      = { 'Olivier Halligon' => 'olivier.halligon+ae@gmail.com' }
 
   s.source       = { :git => "https://github.com/AliSoftware/OHHTTPStubs.git", :tag => s.version.to_s }
+  
+  s.module_map    = 'OHHTTPStubs/Supporting Files/module.modulemap'
+  umbrella_header = "OHHTTPStubs/Supporting Files/OHHTTPStubsUmbrella.h"
 
   s.frameworks = 'Foundation', 'CFNetwork'
 
@@ -45,8 +48,8 @@ Pod::Spec.new do |s|
 
   # The Core subspec, containing the library core needed in all cases
   s.subspec 'Core' do |core|
-    core.source_files = "OHHTTPStubs/Sources/*.{h,m}"
-    core.public_header_files = "OHHTTPStubs/Sources/*.h"
+    core.source_files = "OHHTTPStubs/Sources/*.{h,m}", umbrella_header
+    core.public_header_files = "OHHTTPStubs/Sources/*.h", umbrella_header
   end
 
   # Optional subspecs

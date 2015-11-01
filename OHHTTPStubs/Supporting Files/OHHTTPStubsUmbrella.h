@@ -26,8 +26,26 @@
 #import "OHHTTPStubs.h"
 #import "OHHTTPStubsResponse.h"
 
-#import "OHHTTPStubsResponse+JSON.h"
-#import "OHHTTPStubsResponse+HTTPMessage.h"
-#import "OHHTTPStubs+Mocktail.h"
-#import "OHPathHelpers.h"
+/* When building with CocoaPods, we need to check for #import using __has_include
+ *   because some subspecs may not have been selected by the user.
+ * But when building with Xcode, using __has_include here will generate a compile error (don't
+ *   ask me why, Xcode ¯\_(ツ)_/¯) so let's always #import as they will always be there anyway
+ */
+#if COCOAPODS
+  #define has_subspec_header(x) __has_include(x)
+#else
+  #define has_subspec_header(x) 1
+#endif
 
+#if has_subspec_header("OHHTTPStubsResponse+JSON.h")
+  #import "OHHTTPStubsResponse+JSON.h"
+#endif
+#if has_subspec_header("OHHTTPStubsResponse+HTTPMessage.h")
+  #import "OHHTTPStubsResponse+HTTPMessage.h"
+#endif
+#if has_subspec_header("OHHTTPStubs+Mocktail.h")
+  #import "OHHTTPStubs+Mocktail.h"
+#endif
+#if has_subspec_header("OHPathHelpers.h")
+  #import "OHPathHelpers.h"
+#endif
