@@ -147,7 +147,7 @@ public func isHost(_ host: String) -> OHHTTPStubsTestBlock {
  *         should include in the `path` parameter unless you're testing relative URLs)
  */
 public func isPath(_ path: String) -> OHHTTPStubsTestBlock {
-    return { req in req.url?.path == path }
+    return { req in req.url.flatMap { $0 as URL }?.path == path }
 }
 
 /**
@@ -162,7 +162,7 @@ public func isPath(_ path: String) -> OHHTTPStubsTestBlock {
  *         should include in the `path` parameter unless you're testing relative URLs)
  */
 public func pathStartsWith(_ path: String) -> OHHTTPStubsTestBlock {
-    return { req in req.url?.path?.hasPrefix(path) ?? false }
+    return { req in req.url?.path.hasPrefix(path) ?? false }
 }
 
 /**
